@@ -4,20 +4,25 @@ from PyPDF2 import PdfFileReader
 import os
 
 def headers():
-	print(os.getcwd())
 	print(50*"="+"\nC19 Karnataka Script v0.1")
 	print(50*"="+'\n\n')
 
+def checkFolder(path):
+	if not os.path.exists(path):
+		os.mkdir(path)
+
 def getData(date):
 	
+	path = os.path.join(os.getcwd(),"stats")
+	checkFolder(path)
 	url = 'https://covid19.karnataka.gov.in/storage/pdf-files/Media-Bulletin/'+date+"-2020%20HMB%20English.pdf"
 
-	if not os.path.exists(os.path.join(os.getcwd()+f"/stats/data/{date}.pdf")):
+	if not os.path.exists(os.path.join(path,f"{date}.pdf")):
 		print("Getting Data...")
 		req = requests.get(url)
 
 		if req.status_code == 200:
-			f = open(os.getcwd()+"/stats/data/"+date+'.pdf','w+b')
+			f = open(os.path.join(path,f"{date}.pdf"),'w+b')
 			f.write(req.content)
 			f.close()
 			print("Done, Parsing...")
@@ -25,7 +30,7 @@ def getData(date):
 			print(f'\n[{req.status_code}] Something went wrong :(\nPlease Check the date')
 			sys.exit(1)
 	
-	with open(os.getcwd()+"/stats/data/"+date+'.pdf', 'rb') as f:
+	with open(os.path.join(path,f"{date}.pdf"), 'rb') as f:
 	    pdf = PdfFileReader(f)
 	    # get the first page
 	    page = pdf.getPage(1)

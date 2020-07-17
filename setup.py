@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="C19 Karnataka Stats",
+    name="c19k",
     version="0.0.1",
     author="abjklk",
     author_email="abjklk@gmail.com",
