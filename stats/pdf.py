@@ -33,7 +33,7 @@ def getData(date):
 	with open(os.path.join(path,f"{date}.pdf"), 'rb') as f:
 	    pdf = PdfFileReader(f)
 	    # get the first page
-	    page = pdf.getPage(1)
+	    page = pdf.getPage(2)
 	    text = page.extractText()
 	    arr = []
 	    for i in text.strip().split():
